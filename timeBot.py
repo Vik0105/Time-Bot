@@ -20,5 +20,15 @@ async def on_ready():
       await asyncio.sleep(300) #changes time every 5 minutes
       await ctx.guild.me.edit(nick=datetime.now().astimezone(timeZone).strftime("%a %I:%M %p"))
 
-
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+    #Change timezone with !timezone [zone]
+    if message.content.startswith('!timezone'):
+        omsg = message.content
+        t = search.replace('!timezone ', '')
+        await message.channel.send('Timezone Changed!')
+    
 bot.run(botToken)
